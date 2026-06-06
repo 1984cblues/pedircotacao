@@ -24,15 +24,15 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { estado, cidade, bairro } = await params
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === estado.toLowerCase())
   if (!currentEstado) return {}
 
   const cidades = await getStaticCidadesSP()
-  const currentCidade = cidades.find((c) => c.slug.toLowerCase() === cidade.toLowerCase())
+  const currentCidade = cidades.find((c: any) => c.slug.toLowerCase() === cidade.toLowerCase())
   if (!currentCidade) return {}
 
   const bairros = (currentCidade.bairros || []) as unknown as Array<{ id: number; nome: string; slug: string }>
-  const currentBairro = bairros.find((b) => b.slug.toLowerCase() === bairro.toLowerCase())
+  const currentBairro = bairros.find((b: any) => b.slug.toLowerCase() === bairro.toLowerCase())
   if (!currentBairro) return {}
 
   const title = `Orçamentos de Serviços em ${currentBairro.nome}, ${currentCidade.nome} - ${currentEstado.sigla} | PedirCotação`
@@ -56,15 +56,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function BairroPage({ params }: PageProps) {
   const { estado, cidade, bairro } = await params
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === estado.toLowerCase())
   if (!currentEstado) notFound()
 
   const cidades = await getStaticCidadesSP()
-  const currentCidade = cidades.find((c) => c.slug.toLowerCase() === cidade.toLowerCase())
+  const currentCidade = cidades.find((c: any) => c.slug.toLowerCase() === cidade.toLowerCase())
   if (!currentCidade) notFound()
 
   const bairros = (currentCidade.bairros || []) as unknown as Array<{ id: number; nome: string; slug: string }>
-  const currentBairro = bairros.find((b) => b.slug.toLowerCase() === bairro.toLowerCase())
+  const currentBairro = bairros.find((b: any) => b.slug.toLowerCase() === bairro.toLowerCase())
   if (!currentBairro) notFound()
 
   // Fetch all services

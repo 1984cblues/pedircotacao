@@ -21,11 +21,11 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { estado, cidade } = await params
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === estado.toLowerCase())
   if (!currentEstado) return {}
 
   const cidades = await getStaticCidadesSP()
-  const currentCidade = cidades.find((c) => c.slug.toLowerCase() === cidade.toLowerCase())
+  const currentCidade = cidades.find((c: any) => c.slug.toLowerCase() === cidade.toLowerCase())
   if (!currentCidade) return {}
 
   const title = `Orçamentos de Serviços Técnicos em ${currentCidade.nome} - ${currentEstado.sigla} | PedirCotação`
@@ -49,11 +49,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CidadePage({ params }: PageProps) {
   const { estado, cidade } = await params
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === estado.toLowerCase())
   if (!currentEstado) notFound()
 
   const cidades = await getStaticCidadesSP()
-  const currentCidade = cidades.find((c) => c.slug.toLowerCase() === cidade.toLowerCase())
+  const currentCidade = cidades.find((c: any) => c.slug.toLowerCase() === cidade.toLowerCase())
   if (!currentCidade) notFound()
 
   // Typescript cast for relation:

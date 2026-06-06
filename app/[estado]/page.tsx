@@ -20,7 +20,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { estado } = await params
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === estado.toLowerCase())
 
   if (!currentEstado) {
     return {}
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function EstadoPage({ params }: PageProps) {
   const { estado } = await params
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === estado.toLowerCase())
 
   if (!currentEstado) {
     notFound()
