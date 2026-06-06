@@ -7,18 +7,15 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Breadcrumbs from '@/components/seo/Breadcrumbs'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{
     estado: string
   }>
 }
 
-export async function generateStaticParams() {
-  const estados = await getStaticEstados()
-  return estados.map((e) => ({
-    estado: e.slug.toLowerCase(),
-  }))
-}
+// SSR: rendered at request time (no build-time Supabase dependency)
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { estado } = await params

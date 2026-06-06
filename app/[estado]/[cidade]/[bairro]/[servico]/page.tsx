@@ -11,6 +11,8 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs'
 import JsonLd from '@/components/seo/JsonLd'
 import LeadForm from '@/components/forms/LeadForm'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{
     estado: string
@@ -20,30 +22,7 @@ interface PageProps {
   }>
 }
 
-export async function generateStaticParams() {
-  const bairros = await getStaticBairros()
-  const servicos = await getStaticServicosAtivos()
-
-  const paths: Array<{ estado: string; cidade: string; bairro: string; servico: string }> = []
-
-  for (const b of bairros) {
-    const bAny = b as any
-    const estadoSlug = (bAny.cidades?.estados?.slug || 'sp').toLowerCase()
-    const cidadeSlug = (bAny.cidades?.slug || '').toLowerCase()
-    const bairroSlug = b.slug.toLowerCase()
-
-    for (const s of servicos) {
-      paths.push({
-        estado: estadoSlug,
-        cidade: cidadeSlug,
-        bairro: bairroSlug,
-        servico: s.slug.toLowerCase(),
-      })
-    }
-  }
-
-  return paths
-}
+// SSR: rendered at request time (no build-time Supabase dependency)
 
 async function getPageData(params: { estado: string; cidade: string; bairro: string; servico: string }) {
   const estados = await getStaticEstados()

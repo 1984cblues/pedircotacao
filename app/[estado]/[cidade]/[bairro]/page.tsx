@@ -9,6 +9,8 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Breadcrumbs from '@/components/seo/Breadcrumbs'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{
     estado: string
@@ -17,14 +19,7 @@ interface PageProps {
   }>
 }
 
-export async function generateStaticParams() {
-  const bairros = await getStaticBairros()
-  return bairros.map((b: any) => ({
-    estado: (b.cidades?.estados?.slug || 'sp').toLowerCase(),
-    cidade: (b.cidades?.slug || '').toLowerCase(),
-    bairro: b.slug.toLowerCase(),
-  }))
-}
+// SSR: rendered at request time (no build-time Supabase dependency)
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { estado, cidade, bairro } = await params

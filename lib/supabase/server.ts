@@ -31,14 +31,32 @@ export async function createServerSupabaseClient() {
 // Client para Static Site Generation (SSG) / generateStaticParams
 // Não consome cookies() nem cabeçalhos HTTP dinâmicos para evitar desativar SSG
 export function createStaticSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-      },
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    // During Docker build, env vars may not be available.
+    // Return a mock client that returns empty results.
+    console.warn('[Supabase] Missing env vars — returning mock client (build-time only)')
+    const mockQuery = () => {
+      const chain: any = {
+        select: () => chain,
+        eq: () => chain,
+        in: () => chain,
+        order: () => chain,
+        limit: () => chain,
+        single: () => Promise.resolve({ data: null, error: null }),
+        then: (resolve: any) => resolve({ data: [], error: null }),
+      }
+      return chain
     }
-  )
+    return { from: () => mockQuery() } as any
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
 }
