@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  basePath: '/cotacao',
   // ==========================================
   // SECURITY HEADERS (OWASP 2025)
   // ==========================================
