@@ -107,7 +107,7 @@ export default async function BairroPage({ params }: PageProps) {
                 Serviços Disponíveis no {currentBairro.nome}
               </h2>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {servicos.map((servico) => (
+                {servicos.map((servico: any) => (
                   <Link
                     key={servico.slug}
                     href={`/${currentEstado.slug.toLowerCase()}/${currentCidade.slug.toLowerCase()}/${currentBairro.slug.toLowerCase()}/${servico.slug}`}

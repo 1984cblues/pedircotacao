@@ -92,7 +92,7 @@ export default async function CidadePage({ params }: PageProps) {
                 <p className="text-sm text-zinc-500">Nenhum bairro cadastrado nesta cidade.</p>
               ) : (
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                  {bairros.map((bairro) => (
+                  {bairros.map((bairro: any) => (
                     <Link
                       key={bairro.slug}
                       href={`/${currentEstado.slug.toLowerCase()}/${currentCidade.slug.toLowerCase()}/${bairro.slug}`}

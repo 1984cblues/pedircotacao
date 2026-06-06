@@ -81,7 +81,7 @@ export default async function EstadoPage({ params }: PageProps) {
                 Cidades Disponíveis no Alto Tietê
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {cidades.map((cidade) => (
+                {cidades.map((cidade: any) => (
                   <Link
                     key={cidade.slug}
                     href={`/${currentEstado.slug.toLowerCase()}/${cidade.slug}`}
