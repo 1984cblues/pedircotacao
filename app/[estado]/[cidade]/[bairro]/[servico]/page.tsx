@@ -26,19 +26,19 @@ interface PageProps {
 
 async function getPageData(params: { estado: string; cidade: string; bairro: string; servico: string }) {
   const estados = await getStaticEstados()
-  const currentEstado = estados.find((e) => e.slug.toLowerCase() === params.estado.toLowerCase())
+  const currentEstado = estados.find((e: any) => e.slug.toLowerCase() === params.estado.toLowerCase())
   if (!currentEstado) return null
 
   const cidades = await getStaticCidadesSP()
-  const currentCidade = cidades.find((c) => c.slug.toLowerCase() === params.cidade.toLowerCase())
+  const currentCidade = cidades.find((c: any) => c.slug.toLowerCase() === params.cidade.toLowerCase())
   if (!currentCidade) return null
 
   const bairros = (currentCidade.bairros || []) as unknown as Array<{ id: number; nome: string; slug: string }>
-  const currentBairro = bairros.find((b) => b.slug.toLowerCase() === params.bairro.toLowerCase())
+  const currentBairro = bairros.find((b: any) => b.slug.toLowerCase() === params.bairro.toLowerCase())
   if (!currentBairro) return null
 
   const servicos = await getStaticServicosAtivos()
-  const currentServico = servicos.find((s) => s.slug.toLowerCase() === params.servico.toLowerCase())
+  const currentServico = servicos.find((s: any) => s.slug.toLowerCase() === params.servico.toLowerCase())
   if (!currentServico) return null
 
   // Get database custom SEO content overrides
